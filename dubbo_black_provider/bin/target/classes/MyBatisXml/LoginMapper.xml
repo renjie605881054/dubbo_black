@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.provider.dao.LoginMapper">
+	<resultMap id="BaseResultMap" type="com.consumer.entity.User" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="BaseTableName">user</sql>
+	<sql id="BaseColumnList"> id, name, user_id, user_name, age </sql>
+	
+	<select id="getList" parameterType="com.consumer.entity.User" resultMap="BaseResultMap">
+		select p1.* from <include refid="BaseTableName"/> as p1
+		<where>
+			<if test="userId != null"> and p1.user_id = #{userId}</if>
+			<if test="userName != null"> and p1.user_name = #{userName}</if>
+		</where>
+	</select>
+</mapper>
